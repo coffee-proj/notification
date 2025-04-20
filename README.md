@@ -14,13 +14,13 @@ This is a notification system implementing the Outbox pattern to ensure reliable
 
 The system includes the following microservices:
 
-• gRPC Gateway — receives notification requests via gRPC.
+• <a href="https://github.com/coffee-proj/notification-gateway">gRPC Gateway</a> — receives notification requests via gRPC.
 
-• Public HTTP Gateway — receives notification requests via HTTP.
+• <a href="https://github.com/coffee-proj/notification-api">Public HTTP Gateway</a> — receives notification requests via HTTP.
 
-• Outbox Listener — reads pending notifications from the outbox table in PostgreSQL and publishes them to Kafka. It also listens for delivery status updates.
+• <a href="https://github.com/coffee-proj/notification-outbox">Outbox Listener</a> — reads pending notifications from the outbox table in PostgreSQL and publishes them to Kafka. It also listens for delivery status updates.
 
-• Worker — consumes notification messages from Kafka, sends the notifications, and publishes delivery status messages back to Kafka.
+• <a href="https://github.com/coffee-proj/notification-worker">Worker</a> — consumes notification messages from Kafka, sends the notifications, and publishes delivery status messages back to Kafka.
 
 The interaction of the services is shown in the picture below:
 
