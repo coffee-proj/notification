@@ -1,6 +1,8 @@
 # Notification System
 
-This is a notification system implementing the Outbox pattern to ensure reliable and consistent message delivery. The system consists of several microservices working together to process, send, and track notifications.
+It is a notification system that provides reliable and flexible message delivery with the ability to receive a history and view the status of sending. 
+
+The system consists of several microservices working together to process, send, and track notifications.
 
 ## Features
 
@@ -12,11 +14,11 @@ This is a notification system implementing the Outbox pattern to ensure reliable
 
 The system includes the following microservices:
 
-* [gRPC Gateway](https://github.com/coffee-proj/notification-gateway) — receives notification requests via gRPC.
+* [**Gateway**](https://github.com/coffee-proj/notification-gateway) — receives notification requests via gRPC.
 
-* [Notification Manager](https://github.com/coffee-proj/notification-manager) — reads pending notifications from the outbox table in PostgreSQL and publishes them to Kafka. It also listens for delivery status updates.
+* [**Manager**](https://github.com/coffee-proj/notification-manager) — reads pending notifications from the outbox table in PostgreSQL and publishes them to Kafka. It also listens for delivery status updates.
 
-* [Notification Worker](https://github.com/coffee-proj/notification-worker) — consumes notification messages from Kafka, sends the notifications, and publishes delivery status messages back to Kafka.
+* [**Worker**](https://github.com/coffee-proj/notification-worker) — consumes notification messages from Kafka, sends the notifications, and publishes delivery status messages back to Kafka.
 
 The interaction of the services is shown in the picture below:
 
