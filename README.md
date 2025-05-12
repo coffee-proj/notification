@@ -38,14 +38,14 @@ The interaction of the services is shown in the picture below:
 
 ## How It Works
 
-1. A client sends a notification request to either the gRPC gateway.
+1. Client creates a notification query using the gRPC method provided by Gateway.
 
-2. The gateway writes the request into the outbox table in PostgreSQL and saves the notification history.
+2. Gateway writes the query to the outbox table in PostgreSQL and saves the history in one transaction.
 
-3. The Notification Manager reads new entries from the outbox table and publishes them as messages to a Kafka topic.
+3. Manager reads messages from the outbox table and publishes them to Kafka.
 
-4. The Worker consumes messages from Kafka, sends the actual notifications (e.g., email, SMS, push), then publishes a delivery status message (success, failure, error details) back to a different Kafka topic.
+4. Worker consumes messages from Kafka, sends a notification (for example, by e-mail), then publishes a message about the status of sending (COMPLETED or ERROR and a message explaining the status) to Kafka.
 
-5. The Notification Manager listens to the status topic, updates the notification history in PostgreSQL accordingly.
+5. Manager consumes messages about the status of sending and updates the notification status in PostgreSQL.
 
-6. Users can query the notification history and their statuses through either of the gateways.
+6. The client can interact with queries via the Gateway, for example, to get their history.
