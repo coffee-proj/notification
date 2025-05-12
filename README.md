@@ -6,9 +6,19 @@ The system consists of several microservices working together to process, send, 
 
 ## Features
 
-* Reliable notification delivery using the Outbox pattern and Kafka.
+* **Reliable delivery**: The outbox pattern ensures atomicity of operations within the system, while kafka ensures reliable message transmission across the system.
 
-* Ability to retrieve full notification history with statuses.
+* **Gateway**: The gateway provides gRPC methods for working with the full cycle of sending notifications: from creating a query to receiving a query history.
+
+* **History**: The system provides a complete notification history and status:
+
+    * Getting a list of queries.
+    * Getting all the query data (content, metadata, etc.).
+    * Getting the notification status for each individual recipient (The query supports sending a message to multiple recipients).
+
+* **Scheduled sending**: The system provides the possibility of sending scheduled notifications. The system also provides a way to cancel sending a notification if it is scheduled to be sent (if the time for sending has not yet passed). Canceling a sending can be useful if, for example, plans have changed and the sending is no longer needed. Another possible case where you may need to cancel a sending is SAGA: you can make a scheduled sending and cancel the sending in the case of a compensating transaction.
+
+* **Gateway Idempotence**: Gateway supports idempotence keys (UUID identifiers) to ignore duplicate queries. This allows you to implement things like the retry logic of interacting with the gateway without worrying about duplicate sending the notification.
 
 ## Architecture and Components
 
